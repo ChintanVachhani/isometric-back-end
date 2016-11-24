@@ -4,6 +4,7 @@ import com.isometric.entity.User;
 import com.isometric.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ public class UserController {
         return "CONNECTED!";
     }
 
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public String login(@RequestParam(value = "login-username") String userName, @RequestParam(value = "login-password") String password) {
         if (userRepository.findByUserName(userName) != null) {
             user = userRepository.findByUserName(userName);
@@ -33,7 +34,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/register")
+    @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public String register(@RequestParam(value = "register-username") String userName, @RequestParam(value = "register-password") String password, @RequestParam(value = "register-email") String email, @RequestParam(value = "register-fullname") String fullName) {
         if (userRepository.findByUserName(userName) != null) {
             return "REGISTRATION FAILED! USERNAME ALREADY EXISTS!";
