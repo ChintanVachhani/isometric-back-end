@@ -20,7 +20,7 @@ public class UserController {
         return "CONNECTED!";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestParam(value = "login-username") String userName, @RequestParam(value = "login-password") String password) {
         if (userRepository.findByUserName(userName) != null) {
             user = userRepository.findByUserName(userName);
@@ -34,7 +34,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@RequestParam(value = "register-username") String userName, @RequestParam(value = "register-password") String password, @RequestParam(value = "register-email") String email, @RequestParam(value = "register-fullname") String fullName) {
         if (userRepository.findByUserName(userName) != null) {
             return "REGISTRATION FAILED! USERNAME ALREADY EXISTS!";
