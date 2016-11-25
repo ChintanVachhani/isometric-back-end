@@ -3,24 +3,26 @@ package com.isometric.entity;
 import org.springframework.data.annotation.Id;
 
 /**
- * Created by Chintan on 12-11-2016.
+ * Created by gfogla on 11/25/2016.
  */
 public class User {
     @Id
-    private String id;
+    private String userId;
     private String userName;
     private String password;
     private String email;
     private String fullName;
+    private String lastLoginTime;
 
     public User() {
     }
 
-    public User(String userName, String password, String email, String fullName) {
+    public User(String userName, String password, String email, String fullName, String lastLoginTime) {
         this.userName = userName;
         this.password = password;
         this.email = email;
         this.fullName = fullName;
+        this.lastLoginTime = lastLoginTime;
     }
 
     public String getUserName() {
@@ -55,6 +57,14 @@ public class User {
         this.fullName = fullName;
     }
 
+    public String getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(String lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -62,6 +72,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", fullName='" + fullName + '\'' +
+                ", lastLoginTime='" + lastLoginTime + '\'' +
                 '}';
     }
 }
