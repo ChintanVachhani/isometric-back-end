@@ -2,9 +2,6 @@ package com.isometric.entity;
 
 import org.springframework.data.annotation.Id;
 
-/**
- * Created by Chintan on 12-11-2016.
- */
 public class User {
     @Id
     private String id;
@@ -12,6 +9,7 @@ public class User {
     private String password;
     private String email;
     private String fullName;
+    private LoginInformation lastSuccessfulLogin;
 
     public User() {
     }
@@ -58,10 +56,12 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userName='" + userName + '\'' +
+                "id='" + id + '\'' +
+                ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", fullName='" + fullName + '\'' +
+                ", lastSuccessfulLogin='" + lastSuccessfulLogin + '\'' +
                 '}';
     }
 }

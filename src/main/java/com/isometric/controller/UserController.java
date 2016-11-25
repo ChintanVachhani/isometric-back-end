@@ -3,10 +3,7 @@ package com.isometric.controller;
 import com.isometric.entity.User;
 import com.isometric.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/isometric/user")
@@ -22,16 +19,16 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestParam(value = "login-username") String userName, @RequestParam(value = "login-password") String password) {
-        if (userRepository.findByUserName(userName) != null) {
-            user = userRepository.findByUserName(userName);
-            if (user.getPassword().equals(password))
-                return "LOGIN SUCCESSFUL!";
-            else {
-                return "INCORRECT PASSWORD!";
+            if (userRepository.findByUserName(userName) != null) {
+                user = userRepository.findByUserName(userName);
+                if (user.getPassword().equals(password))
+                    return "LOGIN SUCCESSFUL!";
+                else {
+                    return "INCORRECT PASSWORD!";
+                }
+            } else {
+                return "INCORRECT USERNAME!";
             }
-        } else {
-            return "INCORRECT USERNAME!";
-        }
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
