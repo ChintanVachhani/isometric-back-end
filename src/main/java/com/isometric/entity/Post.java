@@ -1,5 +1,6 @@
 package com.isometric.entity;
 
+import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 
 import java.awt.*;
@@ -11,17 +12,17 @@ public class Post {
     private String postTitle;
     private String postDescription;
     private String userId;
-    private Image itemImage;
+    private Binary itemFile;
     private String requestTime;
     private String itemMaterial;
     private String itemSize;
 
-    public Post(String postId, String postTitle, String postDescription, String userId, Image itemImage, String requestTime, String itemMaterial, String itemSize) {
+    public Post(String postId, String postTitle, String postDescription, String userId, Binary itemFile, String requestTime, String itemMaterial, String itemSize) {
         this.postId = postId;
         this.postTitle = postTitle;
         this.postDescription = postDescription;
         this.userId = userId;
-        this.itemImage = itemImage;
+        this.itemFile = itemFile;
         this.requestTime = requestTime;
         this.itemMaterial = itemMaterial;
         this.itemSize = itemSize;
@@ -59,12 +60,12 @@ public class Post {
         this.userId = userId;
     }
 
-    public Image getItemImage() {
-        return itemImage;
+    public Binary getItemFile() {
+        return itemFile;
     }
 
-    public void setItemImage(Image itemImage) {
-        this.itemImage = itemImage;
+    public void setItemFile(Binary itemFile) {
+        this.itemFile = itemFile;
     }
 
     public String getRequestTime() {

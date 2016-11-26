@@ -4,12 +4,14 @@ import org.springframework.data.annotation.Id;
 
 public class User {
     @Id
-    private String id;
+    private String userId;
     private String userName;
     private String password;
     private String email;
     private String fullName;
-    private LoginInformation lastSuccessfulLogin;
+    private String lastSuccessfulLoginTime;
+    private String lastSuccessfulLoginDate;
+    private String lastSuccessfulLoginLocation;
 
     public User(String userName, String password, String email, String fullName) {
         this.userName = userName;
@@ -50,11 +52,27 @@ public class User {
         this.fullName = fullName;
     }
 
-    public LoginInformation getLastSuccessfulLogin() {
-        return lastSuccessfulLogin;
+    public String getLastSuccessfulLoginTime() {
+        return lastSuccessfulLoginTime;
     }
 
-    public void setLastSuccessfulLogin(LoginInformation lastSuccessfulLogin) {
-        this.lastSuccessfulLogin = lastSuccessfulLogin;
+    public void setLastSuccessfulLoginTime(String lastSuccessfulLoginTime) {
+        this.lastSuccessfulLoginTime = lastSuccessfulLoginTime;
+    }
+
+    public String getLastSuccessfulLoginDate() {
+        return lastSuccessfulLoginDate;
+    }
+
+    public void setLastSuccessfulLoginDate(String lastSuccessfulLoginDate) {
+        this.lastSuccessfulLoginDate = lastSuccessfulLoginDate;
+    }
+
+    public String getLastSuccessfulLoginLocation() {
+        return lastSuccessfulLoginLocation;
+    }
+
+    public void setLastSuccessfulLoginLocation(String lastSuccessfulLoginLocation) {
+        this.lastSuccessfulLoginLocation = lastSuccessfulLoginLocation;
     }
 }
