@@ -2,9 +2,6 @@ package com.isometric.entity;
 
 import org.springframework.data.annotation.Id;
 
-/**
- * Created by gfogl on 11/25/2016.
- */
 public class ShoppingCart {
 
     @Id
@@ -13,17 +10,12 @@ public class ShoppingCart {
     private String bidId;
     private String quantity;
     private String price;
-    private String lastLoginTime;
 
-    public ShoppingCart() {
-    }
-
-    public ShoppingCart(String postId, String bidId, String quantity, String price, String lastLoginTime) {
+    public ShoppingCart(String postId, String bidId, String quantity, String price) {
         this.postId = postId;
         this.bidId = bidId;
         this.quantity = quantity;
         this.price = price;
-        this.lastLoginTime = lastLoginTime;
     }
 
     public String getPostId() {
@@ -57,16 +49,5 @@ public class ShoppingCart {
     public void setPrice(String price) {
         this.price = price;
     }
-
-    @Override
-    public String toString() {
-        return "ShoppingCart{" +
-                "postId='" + postId + '\'' +
-                ", bidId='" + bidId + '\'' +
-                ", quantity='" + quantity + '\'' +
-                ", price='" + price + '\'' +
-                '}';
-    }
-
 
 }

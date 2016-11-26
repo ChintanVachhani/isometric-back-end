@@ -2,28 +2,29 @@ package com.isometric.entity;
 
 import org.springframework.data.annotation.Id;
 
-/**
- * Created by gfogl on 11/25/2016.
- */
 public class Bid {
 
     @Id
     private String bidId;
     private String userId;
     private String postId;
-    private String bidDescription;
-    private String bidName;
-    private String quantity;
+    private double bidAmount;
+    private String bidQuantity;
 
-    public Bid() {
-    }
-
-    public Bid(String userId, String postId, String bidDescription, String bidName, String quantity) {
+    public Bid(String bidId, String userId, String postId, double bidAmount, String bidQuantity) {
+        this.bidId = bidId;
         this.userId = userId;
         this.postId = postId;
-        this.bidDescription = bidDescription;
-        this.bidName = bidName;
-        this.quantity = quantity;
+        this.bidAmount = bidAmount;
+        this.bidQuantity = bidQuantity;
+    }
+
+    public String getBidId() {
+        return bidId;
+    }
+
+    public void setBidId(String bidId) {
+        this.bidId = bidId;
     }
 
     public String getUserId() {
@@ -42,40 +43,20 @@ public class Bid {
         this.postId = postId;
     }
 
-    public String getBidDescription() {
-        return bidDescription;
+    public double getBidAmount() {
+        return bidAmount;
     }
 
-    public void setBidDescription(String bidDescription) {
-        this.bidDescription = bidDescription;
+    public void setBidAmount(double bidAmount) {
+        this.bidAmount = bidAmount;
     }
 
-    public String getBidName() {
-        return bidName;
+    public String getBidQuantity() {
+        return bidQuantity;
     }
 
-    public void setBidNameName(String bidName) {
-        this.bidName = bidName;
+    public void setBidQuantity(String bidQuantity) {
+        this.bidQuantity = bidQuantity;
     }
-
-    public String getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
-    }
-
-    @Override
-    public String toString() {
-        return "Bid{" +
-                "userId='" + userId + '\'' +
-                ", postId='" + postId + '\'' +
-                ", bidDescription='" + bidDescription + '\'' +
-                ", bidName='" + bidName + '\'' +
-                ", quantity='" + quantity + '\'' +
-                '}';
-    }
-
 
 }

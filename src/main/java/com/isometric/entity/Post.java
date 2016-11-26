@@ -4,46 +4,51 @@ import org.springframework.data.annotation.Id;
 
 import java.awt.*;
 
-/**
- * Created by gfogl on 11/25/2016.
- */
 public class Post {
 
     @Id
     private String postId;
-    private String postName;
-    private String description;
+    private String postTitle;
+    private String postDescription;
     private String userId;
-    private Image image;
+    private Image itemImage;
     private String requestTime;
-    private String material;
-    private String size;
+    private String itemMaterial;
+    private String itemSize;
 
-    public Post() {
-    }
-
-    public Post(String postName, String description, String userId, String size, String requestTime, String material, Image image) {
-        this.postName = postName;
-        this.description = description;
+    public Post(String postId, String postTitle, String postDescription, String userId, Image itemImage, String requestTime, String itemMaterial, String itemSize) {
+        this.postId = postId;
+        this.postTitle = postTitle;
+        this.postDescription = postDescription;
         this.userId = userId;
-        this.size = size;
+        this.itemImage = itemImage;
         this.requestTime = requestTime;
-        this.material = material;
-        this.image = image;
+        this.itemMaterial = itemMaterial;
+        this.itemSize = itemSize;
     }
 
-    public String getPostName() { return postName;}
-
-    public void setPostName(String postName) {
-        this.postName = postName;
+    public String getPostId() {
+        return postId;
     }
 
-    public String getDescription() {
-        return description;
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getPostTitle() {
+        return postTitle;
+    }
+
+    public void setPostTitle(String postTitle) {
+        this.postTitle = postTitle;
+    }
+
+    public String getPostDescription() {
+        return postDescription;
+    }
+
+    public void setPostDescription(String postDescription) {
+        this.postDescription = postDescription;
     }
 
     public String getUserId() {
@@ -54,41 +59,36 @@ public class Post {
         this.userId = userId;
     }
 
-    public String getSize() {
-        return size;
+    public Image getItemImage() {
+        return itemImage;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public void setItemImage(Image itemImage) {
+        this.itemImage = itemImage;
     }
 
-    public String getRequestTime() { return requestTime;}
-
-    public void setRequestTime(String requestTime) { this.requestTime = requestTime;}
-
-    public String getMaterial() {
-        return material;
+    public String getRequestTime() {
+        return requestTime;
     }
 
-    public void setMaterial(String material) {this.material = material;}
-
-    public Image getImage() {
-        return image;
+    public void setRequestTime(String requestTime) {
+        this.requestTime = requestTime;
     }
 
-    public void setImage(Image image) {this.image= image;}
+    public String getItemMaterial() {
+        return itemMaterial;
+    }
 
-    @Override
-    public String toString() {
-        return "Post{" +
-                "postName='" + postName + '\'' +
-                ", description='" + description + '\'' +
-                ", userId='" + userId + '\'' +
-                ", size='" + size + '\'' +
-                ", requestTime='" + requestTime + '\'' +
-                ", size='" + size + '\'' +
-                ", material='" + material + '\'' +
-                '}';
+    public void setItemMaterial(String itemMaterial) {
+        this.itemMaterial = itemMaterial;
+    }
+
+    public String getItemSize() {
+        return itemSize;
+    }
+
+    public void setItemSize(String itemSize) {
+        this.itemSize = itemSize;
     }
 
 }

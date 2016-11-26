@@ -11,9 +11,6 @@ public class User {
     private String fullName;
     private LoginInformation lastSuccessfulLogin;
 
-    public User() {
-    }
-
     public User(String userName, String password, String email, String fullName) {
         this.userName = userName;
         this.password = password;
@@ -53,15 +50,11 @@ public class User {
         this.fullName = fullName;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", lastSuccessfulLogin='" + lastSuccessfulLogin + '\'' +
-                '}';
+    public LoginInformation getLastSuccessfulLogin() {
+        return lastSuccessfulLogin;
+    }
+
+    public void setLastSuccessfulLogin(LoginInformation lastSuccessfulLogin) {
+        this.lastSuccessfulLogin = lastSuccessfulLogin;
     }
 }
