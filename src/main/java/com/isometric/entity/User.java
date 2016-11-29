@@ -1,19 +1,30 @@
 package com.isometric.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
+
+import java.math.BigInteger;
 
 public class User {
     @Id
-    private String userId;
+    private BigInteger userId;
     private String userName;
+    @JsonIgnore
     private String password;
     private String email;
     private String fullName;
-    private String lastSuccessfulLoginTime;
-    private String lastSuccessfulLoginDate;
-    private String lastSuccessfulLoginLocation;
+    private String previousLoginTime;
+    private String previousLoginDate;
+    private String previousLoginLocation;
+    private String currentLoginTime;
+    private String currentLoginDate;
+    private String currentLoginLocation;
 
-    public User(String userName, String password, String email, String fullName) {
+    public User() {
+    }
+
+    public User(BigInteger userId, String userName, String password, String email, String fullName) {
+        this.userId = userId;
         this.userName = userName;
         this.password = password;
         this.email = email;
@@ -52,27 +63,51 @@ public class User {
         this.fullName = fullName;
     }
 
-    public String getLastSuccessfulLoginTime() {
-        return lastSuccessfulLoginTime;
+    public String getPreviousLoginTime() {
+        return previousLoginTime;
     }
 
-    public void setLastSuccessfulLoginTime(String lastSuccessfulLoginTime) {
-        this.lastSuccessfulLoginTime = lastSuccessfulLoginTime;
+    public void setPreviousLoginTime(String previousLoginTime) {
+        this.previousLoginTime = previousLoginTime;
     }
 
-    public String getLastSuccessfulLoginDate() {
-        return lastSuccessfulLoginDate;
+    public String getPreviousLoginDate() {
+        return previousLoginDate;
     }
 
-    public void setLastSuccessfulLoginDate(String lastSuccessfulLoginDate) {
-        this.lastSuccessfulLoginDate = lastSuccessfulLoginDate;
+    public void setPreviousLoginDate(String previousLoginDate) {
+        this.previousLoginDate = previousLoginDate;
     }
 
-    public String getLastSuccessfulLoginLocation() {
-        return lastSuccessfulLoginLocation;
+    public String getPreviousLoginLocation() {
+        return previousLoginLocation;
     }
 
-    public void setLastSuccessfulLoginLocation(String lastSuccessfulLoginLocation) {
-        this.lastSuccessfulLoginLocation = lastSuccessfulLoginLocation;
+    public void setPreviousLoginLocation(String previousLoginLocation) {
+        this.previousLoginLocation = previousLoginLocation;
+    }
+
+    public String getCurrentLoginTime() {
+        return currentLoginTime;
+    }
+
+    public void setCurrentLoginTime(String currentLoginTime) {
+        this.currentLoginTime = currentLoginTime;
+    }
+
+    public String getCurrentLoginDate() {
+        return currentLoginDate;
+    }
+
+    public void setCurrentLoginDate(String currentLoginDate) {
+        this.currentLoginDate = currentLoginDate;
+    }
+
+    public String getCurrentLoginLocation() {
+        return currentLoginLocation;
+    }
+
+    public void setCurrentLoginLocation(String currentLoginLocation) {
+        this.currentLoginLocation = currentLoginLocation;
     }
 }

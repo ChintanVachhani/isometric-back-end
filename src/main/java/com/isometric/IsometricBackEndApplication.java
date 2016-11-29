@@ -1,26 +1,38 @@
 package com.isometric;
 
+import com.isometric.entity.ID;
+import com.isometric.repository.IDRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import java.math.BigInteger;
 
 @SpringBootApplication
-public class IsometricBackEndApplication {
+public class IsometricBackEndApplication implements CommandLineRunner {
+
+    @Autowired
+    private IDRepository idRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(IsometricBackEndApplication.class, args);
     }
 
-    @Bean
+    @Override
+    public void run(String... args) throws Exception {
+        if (idRepository.count() == 0) {
+            idRepository.save(new ID("key", BigInteger.valueOf(1), BigInteger.valueOf(1), BigInteger.valueOf(1), BigInteger.valueOf(1)));
+        }
+    }
+
+    /*@Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/isometric").allowedOrigins("http://localhost:9090");
+                registry.addMapping("isometric/login").allowedOrigins("http://localhost:63343");
             }
         };
-    }
+    }*/
 }

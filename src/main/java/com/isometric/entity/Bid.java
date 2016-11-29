@@ -9,14 +9,12 @@ public class Bid {
     private String userId;
     private String postId;
     private double bidAmount;
-    private String bidQuantity;
 
-    public Bid(String bidId, String userId, String postId, double bidAmount, String bidQuantity) {
+    public Bid(String bidId, String userId, String postId, double bidAmount) {
         this.bidId = bidId;
         this.userId = userId;
         this.postId = postId;
         this.bidAmount = bidAmount;
-        this.bidQuantity = bidQuantity;
     }
 
     public String getBidId() {
@@ -49,14 +47,6 @@ public class Bid {
 
     public void setBidAmount(double bidAmount) {
         this.bidAmount = bidAmount;
-    }
-
-    public String getBidQuantity() {
-        return bidQuantity;
-    }
-
-    public void setBidQuantity(String bidQuantity) {
-        this.bidQuantity = bidQuantity;
     }
 
 }

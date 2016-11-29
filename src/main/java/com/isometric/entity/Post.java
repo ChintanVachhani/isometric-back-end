@@ -16,8 +16,10 @@ public class Post {
     private String requestTime;
     private String itemMaterial;
     private String itemSize;
+    private String itemBuiltType;
+    private String itemColorType;
 
-    public Post(String postId, String postTitle, String postDescription, String userId, Binary itemFile, String requestTime, String itemMaterial, String itemSize) {
+    public Post(String postId, String postTitle, String postDescription, String userId, Binary itemFile, String requestTime, String itemMaterial, String itemSize, String itemBuiltType, String itemColorType) {
         this.postId = postId;
         this.postTitle = postTitle;
         this.postDescription = postDescription;
@@ -26,6 +28,8 @@ public class Post {
         this.requestTime = requestTime;
         this.itemMaterial = itemMaterial;
         this.itemSize = itemSize;
+        this.itemBuiltType = itemBuiltType;
+        this.itemColorType = itemColorType;
     }
 
     public String getPostId() {
@@ -92,4 +96,19 @@ public class Post {
         this.itemSize = itemSize;
     }
 
+    public String getItemBuiltType() {
+        return itemBuiltType;
+    }
+
+    public void setItemBuiltType(String itemBuiltType) {
+        this.itemBuiltType = itemBuiltType;
+    }
+
+    public String getItemColorType() {
+        return itemColorType;
+    }
+
+    public void setItemColorType(String itemColorType) {
+        this.itemColorType = itemColorType;
+    }
 }
