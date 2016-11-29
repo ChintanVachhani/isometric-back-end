@@ -2,7 +2,6 @@ package com.isometric.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
-
 import java.math.BigInteger;
 
 public class User {
@@ -29,6 +28,10 @@ public class User {
         this.password = password;
         this.email = email;
         this.fullName = fullName;
+    }
+
+    public BigInteger getUserId() {
+        return userId;
     }
 
     public String getUserName() {

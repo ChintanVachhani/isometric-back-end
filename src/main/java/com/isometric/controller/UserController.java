@@ -8,7 +8,6 @@ import com.isometric.repository.IDRepository;
 import com.isometric.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.math.BigInteger;
 
 @RestController
@@ -33,7 +32,7 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:63343")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public LoginResponse login(@RequestParam(value = "login-username") String userName, @RequestParam(value = "login-password") String password, @RequestParam(value = "login-time") String time, @RequestParam(value = "login-date") String date, @RequestParam(value = "login-location") String location) {
+    public LoginResponse login(@RequestParam(value = "userName") String userName, @RequestParam(value = "password") String password, @RequestParam(value = "time") String time, @RequestParam(value = "date") String date, @RequestParam(value = "location") String location) {
         if (userRepository.findByUserName(userName) != null) {
             user = userRepository.findByUserName(userName);
             if (user.getPassword().equals(password)) {
@@ -44,7 +43,7 @@ public class UserController {
                 user.setCurrentLoginDate(date);
                 user.setCurrentLoginLocation(location);
                 userRepository.save(user);
-                return new LoginResponse("Login successful.");
+                return new LoginResponse(user.getUserId(), "Login successful.");
             } else {
                 return new LoginResponse("Incorrect password.");
             }
@@ -55,7 +54,7 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:63343")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public RegisterResponse register(@RequestParam(value = "register-username") String userName, @RequestParam(value = "register-password") String password, @RequestParam(value = "register-email") String email, @RequestParam(value = "register-fullname") String fullName) {
+    public RegisterResponse register(@RequestParam(value = "userName") String userName, @RequestParam(value = "password") String password, @RequestParam(value = "email") String email, @RequestParam(value = "fullName") String fullName) {
         if (userRepository.findByUserName(userName) != null) {
             return new RegisterResponse("Registration failed. Username already exists.");
         } else if (userRepository.findByEmail(email) != null) {
@@ -68,18 +67,62 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:63343")
-    @RequestMapping(value = "/access/{user}", method = RequestMethod.POST)
-    public User userAccess(@PathVariable(value = "user") String userName) {
-        user = userRepository.findByUserName(userName);
+    @RequestMapping(value = "/access/{userId}", method = RequestMethod.GET)
+    public User userAccess(@PathVariable(value = "userId") BigInteger userId) {
+        user = userRepository.findOne(userId);
         return user;
     }
 
-    /*@RequestMapping(value = "/access/{user}/update", method = RequestMethod.POST)
-    public User userUpdate(@PathVariable(value = "user") String userToken, @RequestParam(value = "profile-modal-username") String userName, @RequestParam(value = "profile-modal-password") String password, @RequestParam(value = "profile-modal-email") String email, @RequestParam(value = "profile-modal-fullname") String fullName) {
-        if(userToken.equals(userName) && userRepository.findByUserName(userToken).getEmail().equals(email)){
-            user = userRepository.findByUserName(userName);
-        }
+    @CrossOrigin(origins = "http://localhost:63343")
+    @RequestMapping(value = "/access/{userId}/update", method = RequestMethod.POST)
+    public User userUpdate(@PathVariable(value = "userId") BigInteger userId, @RequestParam(value = "userName") String userName, @RequestParam(value = "password") String password, @RequestParam(value = "email") String email, @RequestParam(value = "fullName") String fullName) {
+        user = userRepository.findOne(userId);
+        if (password != "") {
+            if (user.getUserName().equals(userName) && user.getEmail().equals(email)) {
+                user.setFullName(fullName);
+                user.setPassword(password);
+                userRepository.save(user);
+            } else if (user.getUserName().equals(userName)) {
+                if (userRepository.findByEmail(email) != null) {
 
+                } else {
+                    user.setEmail(email);
+                }
+                user.setFullName(fullName);
+                user.setPassword(password);
+                userRepository.save(user);
+            } else if (user.getEmail().equals(email)) {
+                if (userRepository.findByUserName(userName) != null) {
+
+                } else {
+                    user.setUserName(userName);
+                }
+                user.setFullName(fullName);
+                user.setPassword(password);
+                userRepository.save(user);
+            } else {
+                if (userRepository.findByUserName(userName) != null) {
+                    if (userRepository.findByEmail(email) != null) {
+
+                    } else {
+                        user.setEmail(email);
+                    }
+                    user.setFullName(fullName);
+                    user.setPassword(password);
+                    userRepository.save(user);
+                } else {
+                    user.setUserName(userName);
+                    if (userRepository.findByEmail(email) != null) {
+
+                    } else {
+                        user.setEmail(email);
+                    }
+                    user.setFullName(fullName);
+                    user.setPassword(password);
+                    userRepository.save(user);
+                }
+            }
+        }
         return user;
-    }*/
+    }
 }

@@ -12,14 +12,14 @@ public class Post {
     private String postTitle;
     private String postDescription;
     private String userId;
-    private Binary itemFile;
+    private Byte[] itemFile;
     private String requestTime;
     private String itemMaterial;
     private String itemSize;
     private String itemBuiltType;
     private String itemColorType;
 
-    public Post(String postId, String postTitle, String postDescription, String userId, Binary itemFile, String requestTime, String itemMaterial, String itemSize, String itemBuiltType, String itemColorType) {
+    public Post(String postId, String postTitle, String postDescription, String userId, Byte[] itemFile, String requestTime, String itemMaterial, String itemSize, String itemBuiltType, String itemColorType) {
         this.postId = postId;
         this.postTitle = postTitle;
         this.postDescription = postDescription;
@@ -64,11 +64,11 @@ public class Post {
         this.userId = userId;
     }
 
-    public Binary getItemFile() {
+    public Byte[] getItemFile() {
         return itemFile;
     }
 
-    public void setItemFile(Binary itemFile) {
+    public void setItemFile(Byte[] itemFile) {
         this.itemFile = itemFile;
     }
 
