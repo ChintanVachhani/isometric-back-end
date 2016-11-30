@@ -27,7 +27,7 @@ public class BidController {
         BigInteger bidId;
         id = idRepository.findOne("key");
         bidId = id.getBidId();
-        id.setPostId(bidId.add(BigInteger.valueOf(1)));
+        id.setBidId(bidId.add(BigInteger.valueOf(1)));
         idRepository.save(id);
         return bidId;
     }
