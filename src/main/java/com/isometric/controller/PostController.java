@@ -32,27 +32,27 @@ public class PostController {
         return postId;
     }
 
-    @CrossOrigin(origins = "http://localhost:63343")
+    @CrossOrigin(origins = "http://localhost:9090")
     @RequestMapping(value = "/{userId}/post", method = RequestMethod.POST)
     public void createPost(@PathVariable(value = "userId") BigInteger userId, @RequestParam(value = "postTitle") String postTitle, @RequestParam(value = "postDescription") String postDescription, @RequestParam(value = "postTime") String postTime, @RequestParam(value = "itemMaterial") String itemMaterial, @RequestParam(value = "itemSize") String itemSize, @RequestParam(value = "itemBuiltType") String itemBuiltType, @RequestParam(value = "itemColorType") String itemColorType) {
         postRepository.save(new Post(getPostId(), postTitle, postDescription, userId, postTime, itemMaterial, itemSize, itemBuiltType, itemColorType));
     }
 
-    @CrossOrigin(origins = "http://localhost:63343")
+    @CrossOrigin(origins = "http://localhost:9090")
     @RequestMapping(value = "/posts", method = RequestMethod.GET)
     public List<Post> getPosts() {
         postList = postRepository.findAll();
         return postList;
     }
 
-    @CrossOrigin(origins = "http://localhost:63343")
+    @CrossOrigin(origins = "http://localhost:9090")
     @RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)
     public Post getPost(@PathVariable(value = "postId") BigInteger postId) {
         post = postRepository.findOne(postId);
         return post;
     }
 
-    @CrossOrigin(origins = "http://localhost:63343")
+    @CrossOrigin(origins = "http://localhost:9090")
     @RequestMapping(value = "/{userId}/posts", method = RequestMethod.GET)
     public List<Post> getPostsByUser(@PathVariable(value = "userId") BigInteger userId) {
         postList = postRepository.findByUserId(userId);

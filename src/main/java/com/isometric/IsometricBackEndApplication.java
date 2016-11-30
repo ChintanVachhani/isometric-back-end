@@ -31,7 +31,7 @@ public class IsometricBackEndApplication implements CommandLineRunner {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("isometric/login").allowedOrigins("http://localhost:63343");
+                registry.addMapping("isometric/login").allowedOrigins("http://localhost:9090");
             }
         };
     }*/

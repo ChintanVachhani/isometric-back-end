@@ -31,7 +31,7 @@ public class UserController {
         return userId;
     }
 
-    @CrossOrigin(origins = "http://localhost:63343")
+    @CrossOrigin(origins = "http://localhost:9090")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public LoginResponse login(@RequestParam(value = "userName") String userName, @RequestParam(value = "password") String password, @RequestParam(value = "time") String time, @RequestParam(value = "date") String date, @RequestParam(value = "location") String location) {
         if (userRepository.findByUserName(userName) != null) {
@@ -53,7 +53,7 @@ public class UserController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:63343")
+    @CrossOrigin(origins = "http://localhost:9090")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public RegisterResponse register(@RequestParam(value = "userName") String userName, @RequestParam(value = "password") String password, @RequestParam(value = "email") String email, @RequestParam(value = "fullName") String fullName) {
         if (userRepository.findByUserName(userName) != null) {
@@ -66,14 +66,14 @@ public class UserController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:63343")
+    @CrossOrigin(origins = "http://localhost:9090")
     @RequestMapping(value = "/access/{userId}", method = RequestMethod.GET)
     public User userAccess(@PathVariable(value = "userId") BigInteger userId) {
         user = userRepository.findOne(userId);
         return user;
     }
 
-    @CrossOrigin(origins = "http://localhost:63343")
+    @CrossOrigin(origins = "http://localhost:9090")
     @RequestMapping(value = "/access/{userId}/update", method = RequestMethod.POST)
     public User userUpdate(@PathVariable(value = "userId") BigInteger userId, @RequestParam(value = "userName") String userName, @RequestParam(value = "password") String password, @RequestParam(value = "email") String email, @RequestParam(value = "fullName") String fullName) {
         user = userRepository.findOne(userId);

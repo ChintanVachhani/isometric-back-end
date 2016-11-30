@@ -32,20 +32,20 @@ public class BidController {
         return bidId;
     }
 
-    @CrossOrigin(origins = "http://localhost:63343")
+    @CrossOrigin(origins = "http://localhost:9090")
     @RequestMapping(value = "/{userId}/bid", method = RequestMethod.POST)
     public void createPost(@PathVariable(value = "userId") BigInteger userId, @RequestParam(value = "postId") BigInteger postId, @RequestParam(value = "postTitle") String postTitle, @RequestParam(value = "bidAmount") double bidAmount) {
         bidRepository.save(new Bid(getBidId(), userId, postId, postTitle, bidAmount));
     }
 
-    @CrossOrigin(origins = "http://localhost:63343")
+    @CrossOrigin(origins = "http://localhost:9090")
     @RequestMapping(value = "/{userId}/bids", method = RequestMethod.GET)
     public List<Bid> getBids(@PathVariable(value = "userId") BigInteger userId) {
         bidList = bidRepository.findByUserId(userId);
         return bidList;
     }
 
-    @CrossOrigin(origins = "http://localhost:63343")
+    @CrossOrigin(origins = "http://localhost:9090")
     @RequestMapping(value = "/bids/{postId}", method = RequestMethod.GET)
     public List<Bid> getBidsByPost(@PathVariable(value = "postId") BigInteger postId) {
         bidList = bidRepository.findByUserId(postId);
