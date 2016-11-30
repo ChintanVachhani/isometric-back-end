@@ -2,42 +2,44 @@ package com.isometric.entity;
 
 import org.springframework.data.annotation.Id;
 
+import java.math.BigInteger;
+
 public class Bid {
 
     @Id
-    private String bidId;
-    private String userId;
-    private String postId;
+    private BigInteger bidId;
+    private BigInteger userId;
+    private BigInteger postId;
     private double bidAmount;
 
-    public Bid(String bidId, String userId, String postId, double bidAmount) {
+    public Bid(BigInteger bidId, BigInteger userId, BigInteger postId, double bidAmount) {
         this.bidId = bidId;
         this.userId = userId;
         this.postId = postId;
         this.bidAmount = bidAmount;
     }
 
-    public String getBidId() {
+    public BigInteger getBidId() {
         return bidId;
     }
 
-    public void setBidId(String bidId) {
+    public void setBidId(BigInteger bidId) {
         this.bidId = bidId;
     }
 
-    public String getUserId() {
+    public BigInteger getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(BigInteger userId) {
         this.userId = userId;
     }
 
-    public String getPostId() {
+    public BigInteger getPostId() {
         return postId;
     }
 
-    public void setPostId(String postId) {
+    public void setPostId(BigInteger postId) {
         this.postId = postId;
     }
 

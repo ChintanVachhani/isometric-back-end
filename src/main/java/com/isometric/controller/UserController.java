@@ -8,10 +8,11 @@ import com.isometric.repository.IDRepository;
 import com.isometric.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.math.BigInteger;
 
 @RestController
-@RequestMapping(value = "/isometric")
+@RequestMapping(value = "/isometric/user")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
@@ -61,7 +62,6 @@ public class UserController {
             return new RegisterResponse("Registration failed. Email Address already used.");
         } else {
             userRepository.save(new User(getUserId(), userName, password, email, fullName));
-            //userRepository.save(new User(userName, password, email, fullName));
             return new RegisterResponse("Registration successful.");
         }
     }

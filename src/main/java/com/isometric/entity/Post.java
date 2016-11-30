@@ -1,42 +1,39 @@
 package com.isometric.entity;
 
-import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 
-import java.awt.*;
+import java.math.BigInteger;
 
 public class Post {
 
     @Id
-    private String postId;
+    private BigInteger postId;
     private String postTitle;
     private String postDescription;
-    private String userId;
-    private Byte[] itemFile;
-    private String requestTime;
+    private BigInteger userId;
+    private String postTime;
     private String itemMaterial;
     private String itemSize;
     private String itemBuiltType;
     private String itemColorType;
 
-    public Post(String postId, String postTitle, String postDescription, String userId, Byte[] itemFile, String requestTime, String itemMaterial, String itemSize, String itemBuiltType, String itemColorType) {
+    public Post(BigInteger postId, String postTitle, String postDescription, BigInteger userId, String postTime, String itemMaterial, String itemSize, String itemBuiltType, String itemColorType) {
         this.postId = postId;
         this.postTitle = postTitle;
         this.postDescription = postDescription;
         this.userId = userId;
-        this.itemFile = itemFile;
-        this.requestTime = requestTime;
+        this.postTime = postTime;
         this.itemMaterial = itemMaterial;
         this.itemSize = itemSize;
         this.itemBuiltType = itemBuiltType;
         this.itemColorType = itemColorType;
     }
 
-    public String getPostId() {
+    public BigInteger getPostId() {
         return postId;
     }
 
-    public void setPostId(String postId) {
+    public void setPostId(BigInteger postId) {
         this.postId = postId;
     }
 
@@ -56,28 +53,20 @@ public class Post {
         this.postDescription = postDescription;
     }
 
-    public String getUserId() {
+    public BigInteger getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(BigInteger userId) {
         this.userId = userId;
     }
 
-    public Byte[] getItemFile() {
-        return itemFile;
+    public String getpostTime() {
+        return postTime;
     }
 
-    public void setItemFile(Byte[] itemFile) {
-        this.itemFile = itemFile;
-    }
-
-    public String getRequestTime() {
-        return requestTime;
-    }
-
-    public void setRequestTime(String requestTime) {
-        this.requestTime = requestTime;
+    public void setpostTime(String postTime) {
+        this.postTime = postTime;
     }
 
     public String getItemMaterial() {
