@@ -10,12 +10,14 @@ public class Bid {
     private BigInteger bidId;
     private BigInteger userId;
     private BigInteger postId;
+    private String postTitle;
     private double bidAmount;
 
-    public Bid(BigInteger bidId, BigInteger userId, BigInteger postId, double bidAmount) {
+    public Bid(BigInteger bidId, BigInteger userId, BigInteger postId, String postTitle, double bidAmount) {
         this.bidId = bidId;
         this.userId = userId;
         this.postId = postId;
+        this.postTitle = postTitle;
         this.bidAmount = bidAmount;
     }
 
@@ -41,6 +43,14 @@ public class Bid {
 
     public void setPostId(BigInteger postId) {
         this.postId = postId;
+    }
+
+    public String getPostTitle() {
+        return postTitle;
+    }
+
+    public void setPostTitle(String postTitle) {
+        this.postTitle = postTitle;
     }
 
     public double getBidAmount() {

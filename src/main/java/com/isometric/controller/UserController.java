@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigInteger;
 
 @RestController
-@RequestMapping(value = "/isometric/user")
+@RequestMapping(value = "/isometric")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
