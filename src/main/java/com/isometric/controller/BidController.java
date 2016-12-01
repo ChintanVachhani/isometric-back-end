@@ -48,7 +48,7 @@ public class BidController {
     @CrossOrigin(origins = "http://localhost:9090")
     @RequestMapping(value = "/bids/{postId}", method = RequestMethod.GET)
     public List<Bid> getBidsByPost(@PathVariable(value = "postId") BigInteger postId) {
-        bidList = bidRepository.findByUserId(postId);
+        bidList = bidRepository.findByPostId(postId);
         return bidList;
     }
 }
