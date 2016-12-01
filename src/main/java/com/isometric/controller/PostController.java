@@ -75,7 +75,7 @@ public class PostController {
         //, @RequestParam(value = "mono") String mono
         //, @RequestParam(value = "dual") String dual
         //, @RequestParam(value = "multi") String multi
-        postList = postRepository.findByPostTitleLike(postSearch);
+        postList = postRepository.findByPostTitleLikeIgnoreCase(postSearch);
         return postList;
     }
 }
