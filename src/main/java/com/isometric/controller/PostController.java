@@ -58,4 +58,24 @@ public class PostController {
         postList = postRepository.findByUserId(userId);
         return postList;
     }
+
+    @CrossOrigin(origins = "http://localhost:9090")
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public List<Post> searchPosts(@RequestParam(value = "postSearch") String postSearch) {
+        //, @RequestParam(value = "plastic") String plastic
+        //, @RequestParam(value = "glass") String glass
+        //, @RequestParam(value = "polycarbonate") String polycarbonate
+        //, @RequestParam(value = "polyamide") String polyamide,
+        //, @RequestParam(value = "S") String s
+        //, @RequestParam(value = "M") String m
+        //, @RequestParam(value = "L") String l
+        //, @RequestParam(value = "XL") String xl
+        //, @RequestParam(value = "solid") String solid
+        //, @RequestParam(value = "hollow") String hollow
+        //, @RequestParam(value = "mono") String mono
+        //, @RequestParam(value = "dual") String dual
+        //, @RequestParam(value = "multi") String multi
+        postList = postRepository.findByPostTitleLike(postSearch);
+        return postList;
+    }
 }

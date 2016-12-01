@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface PostRepository extends MongoRepository<Post, BigInteger> {
     List<Post> findByUserId(BigInteger userId);
+    List<Post> findByPostTitleLike(String postTitle);
 }
