@@ -10,14 +10,14 @@ public class ID {
     private BigInteger userId;
     private BigInteger postId;
     private BigInteger bidId;
-    private BigInteger shoppingCartId;
+    private BigInteger orderId;
 
-    public ID(String id, BigInteger userId, BigInteger postId, BigInteger bidId, BigInteger shoppingCartId) {
+    public ID(String id, BigInteger userId, BigInteger postId, BigInteger bidId, BigInteger orderId) {
         this.id = id;
         this.userId = userId;
         this.postId = postId;
         this.bidId = bidId;
-        this.shoppingCartId = shoppingCartId;
+        this.orderId = orderId;
     }
 
     public BigInteger getUserId() {
@@ -44,12 +44,12 @@ public class ID {
         this.bidId = bidId;
     }
 
-    public BigInteger getShoppingCartId() {
-        return shoppingCartId;
+    public BigInteger getOrderId() {
+        return orderId;
     }
 
-    public void setShoppingCartId(BigInteger shoppingCartId) {
-        this.shoppingCartId = shoppingCartId;
+    public void setOrderId(BigInteger orderId) {
+        this.orderId = orderId;
     }
 
 }
