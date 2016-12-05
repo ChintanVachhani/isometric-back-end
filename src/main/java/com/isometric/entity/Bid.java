@@ -2,9 +2,10 @@ package com.isometric.entity;
 
 import org.springframework.data.annotation.Id;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
-public class Bid {
+public class Bid implements Serializable {
 
     @Id
     private BigInteger bidId;

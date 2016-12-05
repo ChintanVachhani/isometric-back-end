@@ -2,9 +2,11 @@ package com.isometric.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
+
+import java.io.Serializable;
 import java.math.BigInteger;
 
-public class User {
+public class User implements Serializable {
     @Id
     private BigInteger userId;
     private String userName;
@@ -26,6 +28,12 @@ public class User {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
+        this.email = email;
+        this.fullName = fullName;
+    }
+
+    public User(BigInteger userId, String email, String fullName) {
+        this.userId = userId;
         this.email = email;
         this.fullName = fullName;
     }

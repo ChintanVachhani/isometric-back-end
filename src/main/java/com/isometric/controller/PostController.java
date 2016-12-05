@@ -1,5 +1,7 @@
 package com.isometric.controller;
 
+import com.isometric.GlobalConstants;
+import com.isometric.MemcachedHelper;
 import com.isometric.entity.ID;
 import com.isometric.entity.Post;
 import com.isometric.repository.IDRepository;
@@ -33,35 +35,51 @@ public class PostController {
         return postId;
     }
 
-    @CrossOrigin(origins = "http://localhost:9090")
+    @CrossOrigin(origins = GlobalConstants.origin)
     @RequestMapping(value = "/{userId}/post", method = RequestMethod.POST)
     public void createPost(@PathVariable(value = "userId") BigInteger userId, @RequestParam(value = "postTitle") String postTitle, @RequestParam(value = "postDescription") String postDescription, @RequestParam(value = "postTime") String postTime, @RequestParam(value = "itemMaterial") String itemMaterial, @RequestParam(value = "itemSize") String itemSize, @RequestParam(value = "itemBuiltType") String itemBuiltType, @RequestParam(value = "itemColorType") String itemColorType) {
         postRepository.save(new Post(getPostId(), postTitle, postDescription, userId, postTime, itemMaterial, itemSize, itemBuiltType, itemColorType));
+        MemcachedHelper.removeFromCache("AllPosts");
+        //MemcachedHelper.removeFromCache(userId.toString());
     }
 
-    @CrossOrigin(origins = "http://localhost:9090")
+    @CrossOrigin(origins = GlobalConstants.origin)
     @RequestMapping(value = "/posts", method = RequestMethod.GET)
     public List<Post> getPosts() {
-        postList = postRepository.findAll();
+        if (MemcachedHelper.getFromCache("AllPosts") != null)
+            postList = (List<Post>) MemcachedHelper.getFromCache("AllPosts");
+        else {
+            postList = postRepository.findAll();
+            MemcachedHelper.putInCache("AllPosts", postList);
+        }
         return postList;
     }
 
-    @CrossOrigin(origins = "http://localhost:9090")
+    @CrossOrigin(origins = GlobalConstants.origin)
     @RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)
     public Post getPost(@PathVariable(value = "postId") BigInteger postId) {
-        post = postRepository.findOne(postId);
+        if (MemcachedHelper.getFromCache(postId.toString()) != null)
+            post = (Post) MemcachedHelper.getFromCache(postId.toString());
+        else
+            post = postRepository.findOne(postId);
         return post;
     }
 
-    @CrossOrigin(origins = "http://localhost:9090")
+    @CrossOrigin(origins = GlobalConstants.origin)
     @RequestMapping(value = "/{userId}/posts", method = RequestMethod.GET)
     public List<Post> getPostsByUser(@PathVariable(value = "userId") BigInteger userId) {
-        postList = postRepository.findByUserId(userId);
+        /*if (MemcachedHelper.getFromCache(userId.toString()) != null)
+            postList = (List<Post>) MemcachedHelper.getFromCache(userId.toString());
+        else {*/
+            postList = postRepository.findByUserId(userId);
+            /*MemcachedHelper.putInCache(userId.toString(), postList);
+        }*/
+
         return postList;
     }
 
     //Naive Implementation of Search functionality
-    @CrossOrigin(origins = "http://localhost:9090")
+    @CrossOrigin(origins = GlobalConstants.origin)
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public List<Post> searchPosts(@RequestParam(value = "postSearch") String postSearch, @RequestParam(value = "plastic") String plastic, @RequestParam(value = "glass") String glass, @RequestParam(value = "polycarbonate") String polycarbonate, @RequestParam(value = "polyamide") String polyamide, @RequestParam(value = "S") String s, @RequestParam(value = "M") String m, @RequestParam(value = "L") String l, @RequestParam(value = "XL") String xl, @RequestParam(value = "solid") String solid, @RequestParam(value = "hollow") String hollow, @RequestParam(value = "mono") String mono, @RequestParam(value = "dual") String dual, @RequestParam(value = "multi") String multi) {
         List<String> itemMaterial = new ArrayList<String>();

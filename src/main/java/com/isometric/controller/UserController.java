@@ -1,5 +1,8 @@
 package com.isometric.controller;
 
+import com.isometric.GlobalConstants;
+import com.isometric.IsometricBackEndApplication;
+import com.isometric.MemcachedHelper;
 import com.isometric.entity.ID;
 import com.isometric.entity.LoginResponse;
 import com.isometric.entity.RegisterResponse;
@@ -31,11 +34,32 @@ public class UserController {
         return userId;
     }
 
-    @CrossOrigin(origins = "http://localhost:9090")
+    @CrossOrigin(origins = GlobalConstants.origin)
+    @RequestMapping(value = "/{userId}", method = RequestMethod.POST)
+    public Boolean authenticateUser(@PathVariable(value = "userId") BigInteger userId) {
+        if (IsometricBackEndApplication.activeUsers.contains(userId))
+            return Boolean.TRUE;
+        return Boolean.FALSE;
+    }
+
+    @CrossOrigin(origins = GlobalConstants.origin)
+    @RequestMapping(value = "/logout/{userId}", method = RequestMethod.POST)
+    public void logout(@PathVariable(value = "userId") BigInteger userId) {
+        IsometricBackEndApplication.activeUsers.remove(userId);
+        /*System.out.println("Active Users' ID: ");
+        for (BigInteger u : IsometricBackEndApplication.activeUsers) {
+            System.out.println(u);
+        }*/
+    }
+
+    @CrossOrigin(origins = GlobalConstants.origin)
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public LoginResponse login(@RequestParam(value = "userName") String userName, @RequestParam(value = "password") String password, @RequestParam(value = "time") String time, @RequestParam(value = "date") String date, @RequestParam(value = "location") String location) {
         if (userRepository.findByUserName(userName) != null) {
-            user = userRepository.findByUserName(userName);
+            if (MemcachedHelper.getFromCache(userName) != null)
+                user = (User) MemcachedHelper.getFromCache(userName);
+            else
+                user = userRepository.findByUserName(userName);
             if (user.getPassword().equals(password)) {
                 user.setPreviousLoginTime(user.getCurrentLoginTime());
                 user.setPreviousLoginDate(user.getCurrentLoginDate());
@@ -44,6 +68,13 @@ public class UserController {
                 user.setCurrentLoginDate(date);
                 user.setCurrentLoginLocation(location);
                 userRepository.save(user);
+                MemcachedHelper.putInCache(userName, user);
+                //System.out.println("Active Users' ID: ");
+                IsometricBackEndApplication.activeUsers.add(user.getUserId());
+                /*for (BigInteger u : IsometricBackEndApplication.activeUsers) {
+                    System.out.println(u);
+                }*/
+                MemcachedHelper.removeFromCache(user.getUserId().toString());
                 return new LoginResponse(user.getUserId(), "Login successful.");
             } else {
                 return new LoginResponse("Incorrect password.");
@@ -53,7 +84,7 @@ public class UserController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:9090")
+    @CrossOrigin(origins = GlobalConstants.origin)
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public RegisterResponse register(@RequestParam(value = "userName") String userName, @RequestParam(value = "password") String password, @RequestParam(value = "email") String email, @RequestParam(value = "fullName") String fullName) {
         if (userRepository.findByUserName(userName) != null) {
@@ -66,14 +97,57 @@ public class UserController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:9090")
+    @CrossOrigin(origins = GlobalConstants.origin)
+    @RequestMapping(value = "/sso")
+    public LoginResponse singleSignOn(@RequestParam(value = "email") String email, @RequestParam(value = "fullName") String fullName, @RequestParam(value = "time") String time, @RequestParam(value = "date") String date, @RequestParam(value = "location") String location) {
+        if (MemcachedHelper.getFromCache(email) != null)
+            user = (User) MemcachedHelper.getFromCache(email);
+        else
+            user = userRepository.findByUserName(email);
+        if (userRepository.findByEmail(email) != null) {
+            user = userRepository.findByEmail(email);
+            user.setPreviousLoginTime(user.getCurrentLoginTime());
+            user.setPreviousLoginDate(user.getCurrentLoginDate());
+            user.setPreviousLoginLocation(user.getCurrentLoginLocation());
+            user.setCurrentLoginTime(time);
+            user.setCurrentLoginDate(date);
+            user.setCurrentLoginLocation(location);
+            userRepository.save(user);
+            user = userRepository.findByEmail(email);
+            MemcachedHelper.putInCache(email, user);
+            IsometricBackEndApplication.activeUsers.add(user.getUserId());
+            /*System.out.println("Active Users' ID: ");
+            for (BigInteger u : IsometricBackEndApplication.activeUsers) {
+                System.out.println(u);
+            }*/
+            MemcachedHelper.removeFromCache(user.getUserId().toString());
+            return new LoginResponse(user.getUserId(), "Login successful.");
+        } else {
+            userRepository.save(new User(getUserId(), email, fullName));
+            user = userRepository.findByEmail(email);
+            MemcachedHelper.putInCache(email, user);
+            IsometricBackEndApplication.activeUsers.add(user.getUserId());
+            /*System.out.println("Active Users' ID: ");
+            for (BigInteger u : IsometricBackEndApplication.activeUsers) {
+                System.out.println(u);
+            }*/
+            return new LoginResponse(user.getUserId(), "Login successful.");
+        }
+    }
+
+    @CrossOrigin(origins = GlobalConstants.origin)
     @RequestMapping(value = "/access/{userId}", method = RequestMethod.GET)
     public User userAccess(@PathVariable(value = "userId") BigInteger userId) {
-        user = userRepository.findOne(userId);
+        if (MemcachedHelper.getFromCache(userId.toString()) != null)
+            user = (User) MemcachedHelper.getFromCache(userId.toString());
+        else {
+            user = userRepository.findOne(userId);
+            MemcachedHelper.putInCache(userId.toString(), user);
+        }
         return user;
     }
 
-    @CrossOrigin(origins = "http://localhost:9090")
+    @CrossOrigin(origins = GlobalConstants.origin)
     @RequestMapping(value = "/access/{userId}/update", method = RequestMethod.POST)
     public User userUpdate(@PathVariable(value = "userId") BigInteger userId, @RequestParam(value = "userName") String userName, @RequestParam(value = "password") String password, @RequestParam(value = "email") String email, @RequestParam(value = "fullName") String fullName) {
         user = userRepository.findOne(userId);
@@ -123,6 +197,8 @@ public class UserController {
                 }
             }
         }
+        MemcachedHelper.removeFromCache(userId.toString());
+        MemcachedHelper.putInCache(userId.toString(), user);
         return user;
     }
 }
