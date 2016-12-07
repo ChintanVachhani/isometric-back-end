@@ -105,7 +105,7 @@ public class OrderController {
                         .from(new InternetAddress("isometric.thevoidsquad@gmail.com"))
                         .to(Lists.newArrayList(new InternetAddress(bidder.getEmail())))
                         .subject("Order Confirmation")
-                        .body("You received an order with ID: " + o.getOrderId() + " from " + purchaser.getEmail())
+                        .body("You received an order with ID: " + o.getOrderId() + " from " + purchaser.getEmail() + "on your bid with ID: " + o.getBidId())
                         .encoding(Charset.forName("UTF-8")).build();
                 emailService.send(emailToBidder);
             } catch (AddressException e) {
