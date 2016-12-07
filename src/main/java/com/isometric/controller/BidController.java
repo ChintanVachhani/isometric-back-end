@@ -36,7 +36,7 @@ public class BidController {
 
     @CrossOrigin(origins = GlobalConstants.origin)
     @RequestMapping(value = "/{userId}/bid", method = RequestMethod.POST)
-    public void createPost(@PathVariable(value = "userId") BigInteger userId, @RequestParam(value = "postId") BigInteger postId, @RequestParam(value = "postTitle") String postTitle, @RequestParam(value = "bidAmount") double bidAmount) {
+    public void createBid(@PathVariable(value = "userId") BigInteger userId, @RequestParam(value = "postId") BigInteger postId, @RequestParam(value = "postTitle") String postTitle, @RequestParam(value = "bidAmount") double bidAmount) {
         bidRepository.save(new Bid(getBidId(), userId, postId, postTitle, bidAmount));
         //MemcachedHelper.removeFromCache(userId.toString());
         //MemcachedHelper.removeFromCache(postId.toString());
